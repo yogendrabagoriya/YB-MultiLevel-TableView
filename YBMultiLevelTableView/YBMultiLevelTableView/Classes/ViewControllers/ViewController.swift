@@ -16,7 +16,7 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.automaticallyAdjustsScrollViewInsets = false
+        //self.automaticallyAdjustsScrollViewInsets = false
         // Do any additional setup after loading the view, typically from a nib.
         self.fetchFamilyData()
     }
@@ -140,7 +140,11 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
                 while row + 1 < tableDataArr.count
                 {
                     let element = tableDataArr[row + 1]
-                    if !(element is GrandParentModel)
+                    if (element is GrandParentModel) || (element is ParentModel)
+                    {
+                        break
+                    }
+                    else if !(element is GrandParentModel)
                     {
                         (element as? ParentModel)?.isExpanded = false
                         (element as? ChildModel)?.isExpanded = false
@@ -149,10 +153,6 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
                         ipsArr.append(ip)
                         count += 1
                         
-                    }
-                    else if (element is GrandParentModel)
-                    {
-                        break
                     }
                 }
                 parent.isExpanded = false
