@@ -13,7 +13,8 @@ class DetailVC : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //  Do your Own 
+        //  Do your Own
+        
     }
     
 }
