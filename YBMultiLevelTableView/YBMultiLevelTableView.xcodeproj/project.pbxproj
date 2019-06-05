@@ -14,7 +14,6 @@
 		C5D032C31EC6B45E00798D90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5D032BF1EC6B45E00798D90 /* Main.storyboard */; };
 		C5D032C81EC6B72500798D90 /* GrandParentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D032C51EC6B72500798D90 /* GrandParentModel.swift */; };
 		C5D032C91EC6B72500798D90 /* ParentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D032C61EC6B72500798D90 /* ParentModel.swift */; };
-		C5D032CA1EC6B72500798D90 /* ChildModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D032C71EC6B72500798D90 /* ChildModel.swift */; };
 		C5D032CC1EC6B98C00798D90 /* FamilyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D032CB1EC6B98C00798D90 /* FamilyModel.swift */; };
 		C5D032CE1EC6F0C200798D90 /* FamilyData.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5D032CD1EC6F0C200798D90 /* FamilyData.plist */; };
 		C5D032D11EC6FA0700798D90 /* FamilyTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D032D01EC6FA0700798D90 /* FamilyTVCell.swift */; };
@@ -31,7 +30,6 @@
 		C5D032BF1EC6B45E00798D90 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C5D032C51EC6B72500798D90 /* GrandParentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrandParentModel.swift; sourceTree = "<group>"; };
 		C5D032C61EC6B72500798D90 /* ParentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentModel.swift; sourceTree = "<group>"; };
-		C5D032C71EC6B72500798D90 /* ChildModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildModel.swift; sourceTree = "<group>"; };
 		C5D032CB1EC6B98C00798D90 /* FamilyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyModel.swift; sourceTree = "<group>"; };
 		C5D032CD1EC6F0C200798D90 /* FamilyData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FamilyData.plist; sourceTree = "<group>"; };
 		C5D032D01EC6FA0700798D90 /* FamilyTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyTVCell.swift; sourceTree = "<group>"; };
@@ -119,7 +117,6 @@
 				C5D032CB1EC6B98C00798D90 /* FamilyModel.swift */,
 				C5D032C51EC6B72500798D90 /* GrandParentModel.swift */,
 				C5D032C61EC6B72500798D90 /* ParentModel.swift */,
-				C5D032C71EC6B72500798D90 /* ChildModel.swift */,
 				C5D032CD1EC6F0C200798D90 /* FamilyData.plist */,
 			);
 			path = Model;
@@ -208,7 +205,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5D032CC1EC6B98C00798D90 /* FamilyModel.swift in Sources */,
-				C5D032CA1EC6B72500798D90 /* ChildModel.swift in Sources */,
 				C5D032C11EC6B45E00798D90 /* ViewController.swift in Sources */,
 				C5D032C81EC6B72500798D90 /* GrandParentModel.swift in Sources */,
 				C5D032C91EC6B72500798D90 /* ParentModel.swift in Sources */,

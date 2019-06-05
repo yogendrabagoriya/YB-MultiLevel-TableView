@@ -54,11 +54,6 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
             cell = tableView.dequeueReusableCell(withIdentifier: "Level2") as? FamilyTVCell
             cell?.titlel.text = parent.parentName
         }
-        else if let child = member as? ChildModel
-        {
-            cell = tableView.dequeueReusableCell(withIdentifier: "Level3") as? FamilyTVCell
-            cell?.titlel.text = child.childName
-        }
         else
         {
              return UITableViewCell()
@@ -99,8 +94,6 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
                     let element = tableDataArr[row + 1]
                     if !(element is GrandParentModel)
                     {
-                        (element as? ParentModel)?.isExpanded = false
-                        (element as? ChildModel)?.isExpanded = false
                         self.tableDataArr.remove(at: row + 1)
                         let ip = IndexPath(row: row + count, section: 0)
                         ipsArr.append(ip)
@@ -118,52 +111,8 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
                 tableView.endUpdates()
             }
         }
-        else if let parent = member as? ParentModel
+        else if member is ParentModel
         {
-            if !parent.isExpanded
-            {
-                parent.isExpanded = true
-                for (index, value) in parent.childMArr.enumerated()
-                {
-                    self.tableDataArr.insert(value, at: row + index + 1)
-                    let ip = IndexPath(row: row + index + 1, section: 0)
-                    ipsArr.append(ip)
-                }
-                tableView.beginUpdates()
-                tableView.insertRows(at: ipsArr, with: .left)
-                tableView.endUpdates()
-            }
-            else
-            {
-                // Delete next level items
-                var count = 1
-                while row + 1 < tableDataArr.count
-                {
-                    let element = tableDataArr[row + 1]
-                    if (element is GrandParentModel) || (element is ParentModel)
-                    {
-                        break
-                    }
-                    else if !(element is GrandParentModel)
-                    {
-                        (element as? ParentModel)?.isExpanded = false
-                        (element as? ChildModel)?.isExpanded = false
-                        self.tableDataArr.remove(at: row + 1)
-                        let ip = IndexPath(row: row + count, section: 0)
-                        ipsArr.append(ip)
-                        count += 1
-                        
-                    }
-                }
-                parent.isExpanded = false
-                tableView.beginUpdates()
-                tableView.deleteRows(at: ipsArr, with: .right)
-                tableView.endUpdates()
-            }
-        }
-        else if member is ChildModel
-        {
-            // Prompt new View controller
             self.performSegue(withIdentifier: "ShowToyNameSegue", sender: self)
         }
     }
