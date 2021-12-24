@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSource{
+class ViewController: UIViewController{
 
     @IBOutlet weak var familtTV : UITableView!
     var familyDataSet : FamilyModel!
@@ -33,7 +33,9 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
             familtTV.reloadData()
         }
     }
-    
+}
+
+extension ViewController : UITableViewDelegate, UITableViewDataSource {
     //MARK:- TableView Data Source Method
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
@@ -70,51 +72,31 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        tableView.cellForRow(at: indexPath)?.isSelected = false
+//        tableView.cellForRow(at: indexPath)?.isSelected = false
         let row = indexPath.row
         let member = tableDataArr[row]
         var ipsArr = Array<IndexPath>()
         if let grandP = member as? GrandParentModel
         {
-            if !grandP.isExpanded
-            {
+            
+            if grandP.isExpanded{
+                self.removeOpenedParentAndChild(tableView)
+            }else{
+                self.removeOpenedParentAndChild(tableView)
                 // Insert next level items
                 grandP.isExpanded = true
+                let newRow = tableDataArr.firstIndex(where: {
+                    $0 as? GrandParentModel === grandP
+                }) ?? 0
+                
                 for (index, value) in grandP.parentMArr.enumerated()
                 {
-                    self.tableDataArr.insert(value, at: row + index + 1)
-                    let ip = IndexPath(row: row + index + 1, section: 0)
+                    self.tableDataArr.insert(value, at: newRow + index + 1)
+                    let ip = IndexPath(row: newRow + index + 1, section: 0)
                     ipsArr.append(ip)
                 }
                 tableView.beginUpdates()
                 tableView.insertRows(at: ipsArr, with: .left)
-                tableView.endUpdates()
-            }
-            else
-            {
-                // Delete next level items
-                var count = 1
-                while row + 1 < tableDataArr.count
-                {
-                    let element = tableDataArr[row + 1]
-                    if !(element is GrandParentModel)
-                    {
-                        (element as? ParentModel)?.isExpanded = false
-                        (element as? ChildModel)?.isExpanded = false
-                        self.tableDataArr.remove(at: row + 1)
-                        let ip = IndexPath(row: row + count, section: 0)
-                        ipsArr.append(ip)
-                        count += 1
-                        
-                    }
-                    else if (element is GrandParentModel)
-                    {
-                        break
-                    }
-                }
-                grandP.isExpanded = false
-                tableView.beginUpdates()
-                tableView.deleteRows(at: ipsArr, with: .right)
                 tableView.endUpdates()
             }
         }
@@ -166,6 +148,43 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
             // Prompt new View controller
             self.performSegue(withIdentifier: "ShowToyNameSegue", sender: self)
         }
+    }
+    
+    /**
+        This function will remove all Parent cell and Child cell from tableview
+     */
+    private func removeOpenedParentAndChild(_ tableView: UITableView){
+        var row : Int = 0
+        var ipsArr = Array<IndexPath>()
+        while row < tableDataArr.count
+        {
+            let gp = tableDataArr[row] as! GrandParentModel
+            if gp.isExpanded {
+                gp.isExpanded = false
+                let parentRow = row + 1
+                var count = 0
+                while parentRow < tableDataArr.count{
+                    let element = tableDataArr[row + 1]
+                    if !(element is GrandParentModel)
+                    {
+                        (element as? ParentModel)?.isExpanded = false
+                        (element as? ChildModel)?.isExpanded = false
+                        self.tableDataArr.remove(at: parentRow)
+                        let ip = IndexPath(row: parentRow + count , section: 0)
+                        ipsArr.append(ip)
+                        count += 1
+                    }else if (element is GrandParentModel){
+                        break
+                    }
+                }
+                break
+            }else{
+                row += 1
+            }
+        }
+        tableView.beginUpdates()
+        tableView.deleteRows(at: ipsArr, with: .right)
+        tableView.endUpdates()
     }
 }
 
